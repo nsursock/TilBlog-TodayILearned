@@ -1,0 +1,283 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Literata", Georgia, "Times New Roman", serif;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-ink: #0e1520;
+  --color-ink-soft: #3a4658;
+  --color-field: #e8eef5;
+  --color-field-2: #d5e0ec;
+  --color-line: #b7c5d6;
+  --color-signal: #1f5eff;
+  --color-signal-deep: #0a2f9e;
+  --color-foam: #f4f7fb;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-field font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -10%, rgb(31 94 255 / 0.12), transparent 60%),
+      linear-gradient(180deg, #eef3f9 0%, var(--color-field) 38%, #dfe8f2 100%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-signal) 28%, white);
+    color: var(--color-ink);
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .site-shell {
+    @apply relative min-h-screen overflow-x-clip;
+  }
+
+  .grid-veil {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 20%, transparent 75%);
+  }
+
+  .nav-link {
+    @apply relative font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2rem;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: var(--color-signal);
+    transition: transform 220ms ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-ink);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .btn-signal {
+    @apply inline-flex items-center gap-3 border border-ink bg-ink px-5 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-foam transition;
+  }
+
+  .btn-signal:hover {
+    @apply border-signal bg-signal text-foam;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-soft;
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-signal-deep);
+  }
+
+  .track-kicker {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-signal-deep;
+  }
+
+  .post-row {
+    @apply block border-t border-line/80 py-7 transition;
+  }
+
+  .post-row:hover .post-row-title {
+    color: var(--color-signal-deep);
+  }
+
+  .post-row:hover .post-row-index {
+    transform: translateX(0.25rem);
+    color: var(--color-signal);
+  }
+
+  .signal-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 12%,
+      #000 58%,
+      transparent 92%
+    );
+  }
+
+  .signal-field svg {
+    width: 160%;
+    min-width: 1100px;
+    height: 115%;
+    margin-left: -30%;
+    margin-top: -4%;
+  }
+
+  .signal-path {
+    fill: none;
+    stroke: var(--color-signal);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+    stroke-dasharray: 1800;
+    stroke-dashoffset: 1800;
+    animation: signal-draw 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+      signal-drift 22s linear 2.6s infinite;
+  }
+
+  .signal-path--ghost {
+    stroke: var(--color-ink);
+    opacity: 0.12;
+    stroke-width: 1;
+    animation-delay: 0.25s, 2.65s;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.1rem);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-brand {
+    animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-copy {
+    animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  }
+
+  .hero-cta {
+    animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
+  }
+
+  .prose-til {
+    @apply prose prose-lg max-w-none text-ink-soft;
+    --tw-prose-headings: var(--color-ink);
+    --tw-prose-links: var(--color-signal-deep);
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-quotes: var(--color-ink);
+    --tw-prose-quote-borders: var(--color-signal);
+    --tw-prose-code: var(--color-ink);
+    --tw-prose-pre-bg: var(--color-ink);
+    --tw-prose-pre-code: var(--color-foam);
+  }
+
+  .prose-til h2,
+  .prose-til h3 {
+    @apply font-display tracking-tight;
+  }
+
+  .prose-til blockquote {
+    @apply border-l-2 font-display text-xl font-medium not-italic text-ink;
+  }
+
+  .prose-til .katex {
+    font-size: 1em;
+  }
+
+  .prose-til eq {
+    display: inline-block;
+  }
+
+  .prose-til eqn {
+    display: block;
+    overflow-x: auto;
+    padding: 0.25rem 0;
+  }
+
+  .prose-til section:has(> eqn) {
+    margin: 1.25em 0;
+  }
+
+  .prose-til section.eqno {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.25em 0;
+  }
+
+  .prose-til section.eqno > eqn {
+    width: 100%;
+    margin-left: 3em;
+  }
+
+  .prose-til section.eqno > span {
+    width: 3em;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes signal-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes signal-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-6%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-brand,
+  .hero-copy,
+  .hero-cta,
+  .signal-path,
+  .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

@@ -1,0 +1,126 @@
+---
+layout: layouts/base.njk
+title: Home
+permalink: /
+fullBleed: true
+---
+
+<section class="relative isolate min-h-[100svh] overflow-hidden">
+  <div class="signal-field text-signal" aria-hidden="true">
+    {% include "partials/signal-field.njk" %}
+  </div>
+
+  <div
+    class="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-16 pt-28 md:px-8 md:pb-20 md:pt-32"
+  >
+    <p class="hero-brand track-kicker mb-5">Lessons from LLM conversations</p>
+
+    <h1
+      class="hero-brand font-display text-[clamp(3.5rem,14vw,9.5rem)] font-extrabold leading-[0.86] tracking-[-0.04em] text-ink"
+    >
+      TilBlog
+    </h1>
+
+    <p
+      class="hero-copy mt-7 max-w-xl text-pretty text-lg text-ink-soft md:text-xl"
+    >
+      What clicked after the chat ended — short notes, course-shaped tracks, kept for next time.
+    </p>
+
+    <div class="hero-cta mt-10 flex flex-wrap items-center gap-6">
+      <a class="btn-signal" href="#lessons">
+        Read latest
+        <span aria-hidden="true">→</span>
+      </a>
+      <a class="btn-ghost" href="#tracks">Browse tracks</a>
+    </div>
+  </div>
+</section>
+
+<section id="lessons" class="border-t border-line/80 bg-foam/50">
+  <div class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+    <div class="reveal mb-12 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="track-kicker">Index</p>
+        <h2 class="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
+          Latest lessons
+        </h2>
+      </div>
+      <p class="max-w-sm text-ink-soft">
+        One idea each. The question, the click, the rule to keep.
+      </p>
+    </div>
+
+    {% if collections.posts.length %}
+    <ul>
+      {% for post in collections.posts %}
+      <li class="reveal" style="transition-delay: {{ loop.index0 * 60 }}ms">
+        <a class="post-row group grid gap-3 md:grid-cols-[5rem_1fr_auto] md:items-baseline md:gap-8" href="{{ post.url }}">
+          <span class="post-row-index font-mono text-sm text-ink-soft transition">
+            {{ loop.index | pad2 }}
+          </span>
+          <div>
+            <p class="track-kicker">
+              {{ post.data.track }} · {{ post.data.level }}
+            </p>
+            <h3 class="post-row-title mt-2 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+              {{ post.data.title }}
+            </h3>
+            {% if post.data.takeaway %}
+            <p class="mt-3 max-w-2xl text-ink-soft">{{ post.data.takeaway }}</p>
+            {% endif %}
+          </div>
+          <time class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-soft" datetime="{{ post.date | isoDate }}">
+            {{ post.date | readableDate }}
+          </time>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="border-t border-line/80"></div>
+    {% else %}
+    <p class="text-ink-soft">No posts yet. Add a Markdown file under <code class="font-mono text-sm">src/posts/</code>.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section id="tracks" class="border-t border-line/80">
+  <div class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+    <div class="reveal mb-12 max-w-2xl">
+      <p class="track-kicker">Curriculum without a campus</p>
+      <h2 class="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
+        Tracks
+      </h2>
+      <p class="mt-4 text-lg text-ink-soft">
+        Levels mark depth, not prerequisites. Follow what you’re curious about.
+      </p>
+    </div>
+
+    <ul class="reveal grid gap-0 border-t border-line/80 md:grid-cols-2">
+      <li class="border-b border-line/80 py-8 md:border-r md:pr-10">
+        <p class="font-mono text-sm text-signal-deep">01</p>
+        <h3 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink">
+          Problem Solving
+        </h3>
+        <p class="mt-3 max-w-md text-ink-soft">
+          Framing, decomposition, checking your work — how to ask so the answer lands.
+        </p>
+        <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+          101 · 102 · …
+        </p>
+      </li>
+      <li class="border-b border-line/80 py-8 md:pl-10">
+        <p class="font-mono text-sm text-signal-deep">02</p>
+        <h3 class="mt-3 font-display text-3xl font-bold tracking-tight text-ink">
+          Signal Processing
+        </h3>
+        <p class="mt-3 max-w-md text-ink-soft">
+          Filters, transforms, sampling — intuition you can carry into the next derivation.
+        </p>
+        <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+          101 · 202 · …
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{
+  "title": "TilBlog",
+  "description": "Lessons distilled from asking questions to LLMs.",
+  "url": "https://example.com",
+  "author": {
+    "name": "Nicolas Sursock",
+    "email": "nicolas.sursock@gmail.com"
+  },
+  "lang": "en"
+}

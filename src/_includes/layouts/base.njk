@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {%- if title and title != "Home" %}{{ title }} · {{ site.title }}{% else %}{{ site.title }} — Today I Learned{% endif %}
+    </title>
+    <meta name="description" content="{{ description or site.description }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css" />
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+    <script>
+      window.__SUPABASE__ = {
+        url: {{ env.supabaseUrl | dump | safe }},
+        anonKey: {{ env.supabasePublishableKey | dump | safe }},
+      };
+    </script>
+    <script src="/assets/js/main.js" defer></script>
+  </head>
+  <body class="site-shell {{ bodyClass or '' }}">
+    <div class="grid-veil" aria-hidden="true"></div>
+
+    <header
+      class="relative z-20 {% if fullBleed %}absolute inset-x-0 top-0{% endif %}"
+      x-data="{ open: false }"
+    >
+      <div
+        class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5 md:px-8 md:py-6"
+      >
+        {% if fullBleed %}
+        <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-soft/80"
+          >Today I Learned</span
+        >
+        {% else %}
+        <a href="/" class="group inline-flex items-baseline gap-2">
+          <span
+            class="font-display text-xl font-extrabold tracking-tight text-ink transition group-hover:text-signal-deep"
+            >{{ site.title }}</span
+          >
+          <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-ink-soft sm:inline"
+            >/ TIL</span
+          >
+        </a>
+        {% endif %}
+
+        <button
+          type="button"
+          class="inline-flex items-center border border-ink/20 bg-foam/60 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-ink md:hidden"
+          @click="open = !open"
+          :aria-expanded="open.toString()"
+          aria-controls="site-nav"
+        >
+          Menu
+        </button>
+
+        <nav id="site-nav" class="hidden md:block">
+          <ul class="flex items-center gap-8">
+            <li><a class="nav-link" href="/#lessons">Lessons</a></li>
+            <li><a class="nav-link" href="/#tracks">Tracks</a></li>
+            <li><a class="nav-link" href="/about/">About</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <nav
+        class="border-y border-line/70 bg-foam/90 px-5 py-5 backdrop-blur md:hidden"
+        x-show="open"
+        x-cloak
+        x-transition.opacity.duration.200ms
+        @click.outside="open = false"
+      >
+        <ul class="flex flex-col gap-4">
+          <li><a class="nav-link" href="/#lessons" @click="open = false">Lessons</a></li>
+          <li><a class="nav-link" href="/#tracks" @click="open = false">Tracks</a></li>
+          <li><a class="nav-link" href="/about/" @click="open = false">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="{% if fullBleed %}{% else %}mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16{% endif %}">
+      {{ content | safe }}
+    </main>
+
+    <footer class="relative z-10 border-t border-line/70">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-10 md:flex-row md:items-end md:justify-between md:px-8"
+      >
+        <div>
+          <p class="font-display text-2xl font-bold tracking-tight text-ink">{{ site.title }}</p>
+          <p class="mt-2 max-w-md text-sm text-ink-soft">{{ site.description }}</p>
+        </div>
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+          Today I asked · Today I learned
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
