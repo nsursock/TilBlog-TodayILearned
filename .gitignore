@@ -8,3 +8,5 @@ _site/
 .env*.local
 .cache/
 .vercel/
+.vercel
+.env*
