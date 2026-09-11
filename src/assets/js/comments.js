@@ -6,7 +6,7 @@ function getClient() {
   return createClient(cfg.url, cfg.anonKey);
 }
 
-export function commentsComponent(postSlug) {
+function commentsComponent(postSlug) {
   return {
     postSlug,
     comments: [],
@@ -99,3 +99,7 @@ export function commentsComponent(postSlug) {
     },
   };
 }
+
+document.addEventListener("alpine:init", () => {
+  window.Alpine.data("comments", commentsComponent);
+});

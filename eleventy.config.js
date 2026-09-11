@@ -30,8 +30,11 @@ async function buildCss() {
 async function buildJs() {
   await ensureDir("dist/assets/js/main.js");
   await esbuild.build({
-    entryPoints: ["src/assets/js/main.js"],
-    outfile: "dist/assets/js/main.js",
+    entryPoints: {
+      main: "src/assets/js/main.js",
+      comments: "src/assets/js/comments.js",
+    },
+    outdir: path.resolve("dist/assets/js"),
     bundle: true,
     minify: isProd,
     sourcemap: !isProd,

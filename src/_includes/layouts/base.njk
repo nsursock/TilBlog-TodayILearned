@@ -9,23 +9,40 @@
     <meta name="description" content="{{ description or site.description }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {% set fontCss = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Syne:wght@700;800&display=swap" %}
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Syne:wght@600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="{{ fontCss }}"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript><link rel="stylesheet" href="{{ fontCss }}" /></noscript>
     <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css" />
+    {% if katex %}
+    <link
+      rel="preload"
+      as="style"
+      href="/assets/vendor/katex/katex.min.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link rel="stylesheet" href="/assets/vendor/katex/katex.min.css"
+    /></noscript>
+    {% endif %}
     <style>
       [x-cloak] {
         display: none !important;
       }
     </style>
+    {% if comments %}
     <script>
       window.__SUPABASE__ = {
         url: {{ env.supabaseUrl | dump | safe }},
         anonKey: {{ env.supabasePublishableKey | dump | safe }},
       };
     </script>
+    <script src="/assets/js/comments.js" defer></script>
+    {% endif %}
     <script src="/assets/js/main.js" defer></script>
   </head>
   <body class="site-shell {{ bodyClass or '' }}">

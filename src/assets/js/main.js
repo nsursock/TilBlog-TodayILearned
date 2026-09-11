@@ -1,8 +1,6 @@
 import Alpine from "alpinejs";
-import { commentsComponent } from "./comments.js";
 
 window.Alpine = Alpine;
-Alpine.data("comments", commentsComponent);
 Alpine.start();
 
 function initReveals() {
