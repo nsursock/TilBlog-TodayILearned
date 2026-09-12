@@ -12,6 +12,8 @@ function initReveals() {
     return;
   }
 
+  // threshold > 0 fails for tall elements (long posts): viewport/height can stay
+  // below 12% forever on mobile, leaving opacity:0 content permanently hidden.
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
@@ -21,10 +23,19 @@ function initReveals() {
         }
       }
     },
-    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+    { rootMargin: "0px 0px -32px 0px", threshold: 0 },
   );
 
-  nodes.forEach((node) => observer.observe(node));
+  nodes.forEach((node) => {
+    const rect = node.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    // Already on screen (or taller than the viewport) → show immediately.
+    if (rect.top < vh && rect.bottom > 0) {
+      node.classList.add("is-in");
+      return;
+    }
+    observer.observe(node);
+  });
 }
 
 if (document.readyState === "loading") {
