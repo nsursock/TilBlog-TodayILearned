@@ -4,7 +4,7 @@ comments: true
 katex: true
 ---
 
-<article class="reveal">
+<article class="reveal" data-til-lesson data-til-track="{{ track }}" data-til-level="{{ level }}">
   <header class="mb-12 border-b border-line/80 pb-10">
     <p class="track-kicker">{{ track }} · {{ level }}</p>
     <h1
@@ -35,7 +35,7 @@ katex: true
   >
     <div>
       {% if nav.prev %}
-      <a class="group block max-w-sm" href="{{ nav.prev.url }}">
+      <a class="group block max-w-sm" href="{{ nav.prev.url }}" data-til-event="lesson_nav" data-til-label="prev" data-til-track="{{ nav.prev.data.track }}" data-til-level="{{ nav.prev.data.level }}">
         <span class="btn-ghost">← Previous</span>
         <span
           class="mt-2 block font-display text-lg font-bold tracking-tight text-ink transition group-hover:text-signal-deep"
@@ -47,7 +47,7 @@ katex: true
     </div>
     <div class="sm:text-right">
       {% if nav.next %}
-      <a class="group block max-w-sm sm:ml-auto" href="{{ nav.next.url }}">
+      <a class="group block max-w-sm sm:ml-auto" href="{{ nav.next.url }}" data-til-event="lesson_nav" data-til-label="next" data-til-track="{{ nav.next.data.track }}" data-til-level="{{ nav.next.data.level }}">
         <span class="btn-ghost sm:justify-end">Next →</span>
         <span
           class="mt-2 block font-display text-lg font-bold tracking-tight text-ink transition group-hover:text-signal-deep"

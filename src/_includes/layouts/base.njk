@@ -64,17 +64,17 @@
         <nav id="site-nav" class="hidden md:block">
           <ul class="flex items-center gap-8">
             <li>
-              <a class="nav-link" href="/#lessons">Lessons</a>
-            </li>
-            <li>
-              <a class="nav-link" href="/#tracks">Tracks</a>
-            </li>
-            <li>
-              <a class="nav-link" href="/about/">About</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+            <a class="nav-link" href="/#lessons" data-til-event="nav_click" data-til-label="lessons">Lessons</a>
+          </li>
+          <li>
+            <a class="nav-link" href="/#tracks" data-til-event="nav_click" data-til-label="tracks">Tracks</a>
+          </li>
+          <li>
+            <a class="nav-link" href="/about/" data-til-event="nav_click" data-til-label="about">About</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
       <nav
         class="border-y border-line/70 bg-foam/90 px-5 py-5 backdrop-blur md:hidden"
         x-show="open"
@@ -83,13 +83,13 @@
         @click.outside="open = false">
         <ul class="flex flex-col gap-4">
           <li>
-            <a class="nav-link" href="/#lessons" @click="open = false">Lessons</a>
+            <a class="nav-link" href="/#lessons" data-til-event="nav_click" data-til-label="lessons" @click="open = false">Lessons</a>
           </li>
           <li>
-            <a class="nav-link" href="/#tracks" @click="open = false">Tracks</a>
+            <a class="nav-link" href="/#tracks" data-til-event="nav_click" data-til-label="tracks" @click="open = false">Tracks</a>
           </li>
           <li>
-            <a class="nav-link" href="/about/" @click="open = false">About</a>
+            <a class="nav-link" href="/about/" data-til-event="nav_click" data-til-label="about" @click="open = false">About</a>
           </li>
         </ul>
       </nav>
@@ -110,6 +110,7 @@
     </footer>
     {% if env.statsmanSiteId %}
       <script defer src="{{ env.statsmanScriptUrl }}" data-site="{{ env.statsmanSiteId }}"></script>
+      <script defer src="/assets/js/statsman-til.js"></script>
     {% endif %}
   </body>
 </html>

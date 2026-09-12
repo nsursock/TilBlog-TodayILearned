@@ -33,6 +33,7 @@ async function buildJs() {
     entryPoints: {
       main: "src/assets/js/main.js",
       comments: "src/assets/js/comments.js",
+      "statsman-til": "src/assets/js/statsman-til.js",
     },
     outdir: path.resolve("dist/assets/js"),
     bundle: true,

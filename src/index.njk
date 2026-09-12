@@ -28,11 +28,11 @@ fullBleed: true
     </p>
 
     <div class="hero-cta mt-10 flex flex-wrap items-center gap-6">
-      <a class="btn-signal" href="#lessons">
+      <a class="btn-signal" href="#lessons" data-til-event="cta_click" data-til-label="read_latest">
         Read latest
         <span aria-hidden="true">→</span>
       </a>
-      <a class="btn-ghost" href="#tracks">Browse tracks</a>
+      <a class="btn-ghost" href="#tracks" data-til-event="cta_click" data-til-label="browse_tracks">Browse tracks</a>
     </div>
   </div>
 </section>
@@ -55,7 +55,7 @@ fullBleed: true
     <ul>
       {% for post in collections.posts %}
       <li class="reveal" style="transition-delay: {{ loop.index0 * 60 }}ms">
-        <a class="post-row group grid gap-3 md:grid-cols-[5rem_1fr_auto] md:items-baseline md:gap-8" href="{{ post.url }}">
+        <a class="post-row group grid gap-3 md:grid-cols-[5rem_1fr_auto] md:items-baseline md:gap-8" href="{{ post.url }}" data-til-event="lesson_click" data-til-track="{{ post.data.track }}" data-til-level="{{ post.data.level }}" data-til-label="{{ post.data.title }}">
           <span class="post-row-index font-mono text-sm text-ink-soft transition">
             {{ loop.index | pad2 }}
           </span>

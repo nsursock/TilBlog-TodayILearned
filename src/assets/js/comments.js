@@ -90,6 +90,15 @@ function commentsComponent(postSlug) {
         this.submitted = true;
         this.authorName = "";
         this.body = "";
+        try {
+          if (typeof window.tilTrack === "function") {
+            window.tilTrack("comment_submit", { path: this.postSlug });
+          } else if (window.statsman && typeof window.statsman.track === "function") {
+            window.statsman.track("comment_submit", { path: this.postSlug });
+          }
+        } catch (trackErr) {
+          /* ignore analytics failures */
+        }
       } catch (err) {
         console.error(err);
         this.error = "Could not submit. Try again in a moment.";
