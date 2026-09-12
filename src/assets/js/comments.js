@@ -29,7 +29,7 @@ function commentsComponent(postSlug) {
 
       try {
         const { data, error } = await client
-          .from("comments")
+          .from("comments_tilblog")
           .select("id, author_name, body, created_at")
           .eq("post_slug", this.postSlug)
           .eq("approved", true)
@@ -80,7 +80,7 @@ function commentsComponent(postSlug) {
 
       this.submitting = true;
       try {
-        const { error } = await client.from("comments").insert({
+        const { error } = await client.from("comments_tilblog").insert({
           post_slug: this.postSlug,
           author_name: name,
           body: text,
