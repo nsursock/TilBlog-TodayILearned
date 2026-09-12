@@ -43,7 +43,9 @@ const publishableKey =
 export default {
   supabaseUrl: process.env.SUPABASE_URL ?? "",
   supabasePublishableKey: publishableKey,
+  // Defaults → production Statsman (Railway). Override in .env for local.
   statsmanScriptUrl:
-    process.env.STATSMAN_SCRIPT_URL ?? "http://localhost:5173/tracker.js",
-  statsmanSiteId: process.env.STATSMAN_SITE_ID ?? "",
+    process.env.STATSMAN_SCRIPT_URL ??
+    "https://statsman-production.up.railway.app/tracker.js",
+  statsmanSiteId: process.env.STATSMAN_SITE_ID ?? "01e2929fc71494c9",
 };
