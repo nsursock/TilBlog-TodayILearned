@@ -45,7 +45,9 @@ export default {
   supabasePublishableKey: publishableKey,
   // Defaults → production Statsman (Railway). Override in .env for local.
   statsmanScriptUrl:
-    process.env.STATSMAN_SCRIPT_URL ??
+    process.env.STATSMAN_SCRIPT_URL ||
     "https://statsman-production.up.railway.app/tracker.js",
-  statsmanSiteId: process.env.STATSMAN_SITE_ID ?? "01e2929fc71494c9",
+  // Empty STATSMAN_SITE_ID disables the tracker.
+  statsmanSiteId:
+    (process.env.STATSMAN_SITE_ID || "").trim() || "b58bef437d0aabfd",
 };
