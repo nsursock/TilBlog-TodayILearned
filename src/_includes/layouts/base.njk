@@ -109,7 +109,7 @@
       </div>
     </footer>
     {% if env.statsmanSiteId %}
-      <script defer src="{{ env.statsmanScriptUrl }}" data-site="{{ env.statsmanSiteId }}"></script>
+      <script defer src="{{ env.statsmanScriptUrl }}" data-site="{{ env.statsmanSiteId }}" data-allow-localhost></script>
       <script defer src="/assets/js/statsman-til.js"></script>
     {% endif %}
   </body>
